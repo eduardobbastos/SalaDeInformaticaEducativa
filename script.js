@@ -89,6 +89,13 @@ const projects = [
         path: 'projetos_jclic/projetos_deploy/projects/index.html',
         image: 'projetos_jclic/projetos_deploy/projects/project-cover.jpg',
         description: 'Coletânea de projetos diversos.'
+    },
+    {
+        id: 'mgame',
+        title: 'Busca Palavras',
+        path: 'projetos_jclic/projetos_para_editar/mgame/index.html',
+        image: 'projetos_jclic/projetos_para_editar/mgame/project-cover.jpg',
+        description: 'Para apoiar alunos com dificuldade de leitura e escrita.'
     }
 ];
 
@@ -137,7 +144,7 @@ function initParticles() {
     canvas.height = canvas.offsetHeight;
 
     let particlesArray = [];
-    const numberOfParticles = 80;
+    const numberOfParticles = 60; // Menos partículas para não poluir, mas maiores
 
     // Mouse interaction
     const mouse = {
@@ -179,7 +186,7 @@ function initParticles() {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fillStyle = this.color; // Usa a cor aleatória
             ctx.fill();
         }
 
@@ -223,13 +230,17 @@ function initParticles() {
 
     function init() {
         particlesArray = [];
+        // Cores vibrantes das partículas
+        const colors = ['rgba(255,255,255,0.8)', 'rgba(255, 230, 109, 0.8)', 'rgba(78, 205, 196, 0.8)'];
+
         for (let i = 0; i < numberOfParticles; i++) {
-            let size = (Math.random() * 3) + 1;
+            let size = (Math.random() * 8) + 2; // Partículas maiores (2 a 10px)
             let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
             let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
-            let directionX = (Math.random() * 2) - 1;
-            let directionY = (Math.random() * 2) - 1;
-            let color = 'white';
+            let directionX = (Math.random() * 1.5) - 0.75;
+            let directionY = (Math.random() * 1.5) - 0.75;
+            // Escolhe cor aleatória
+            let color = colors[Math.floor(Math.random() * colors.length)];
 
             particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
         }
