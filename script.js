@@ -110,11 +110,28 @@ function renderProjects() {
         card.href = project.path;
         card.target = '_blank'; // Opens in new tab
 
+        // Função para escolher ícone baseado no título
+        const getIconForProject = (title) => {
+            const t = title.toLowerCase();
+            if (t.includes('matemática') || t.includes('mat')) return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>'; // Percent/Math
+            if (t.includes('animais') || t.includes('bicho')) return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21S3 17.9 3 13.44c0-1.2.43-2.37 1-3.44 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26 .65-.17 1.33-.26 2-.26z"/></svg>'; // Bear/Animal
+            if (t.includes('folclore')) return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>'; // Book
+            if (t.includes('escola')) return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M8 21v-4a4 4 0 0 1 4-4v0a4 4 0 0 1 4 4v4"/></svg>'; // School
+            if (t.includes('mônica')) return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>'; // Smile
+            // Default: Puzzle Piece
+            return '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 15.424a1 1 0 0 1-1.432-1.408 3.003 3.003 0 0 0 1.993-2.584c0-1.657-1.343-3-3-3s-3 1.343-3 3a1 1 0 0 1-2 0c0-1.657-1.343-3-3-3s-3 1.343-3 3c0 1.39.932 2.564 2.226 2.905a1 1 0 0 1 .774.966v.129a1 1 0 0 1-1 1 3 3 0 0 0-3 3c0 1.657 1.343 3 3 3s3-1.343 3-3a1 1 0 0 1 2 0c0 1.657 1.343 3 3 3s3-1.343 3-3c0-1.157-.648-2.176-1.626-2.705a1 1 0 0 1-.374-1.3z"/></svg>';
+        };
+
         const imageHTML = `
-            <img src="${project.image}" 
-                 alt="${project.title}" 
-                 class="card-image"
-                 onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'card-image-placeholder\'>${project.title.substring(0, 2).toUpperCase()}</div>'">
+            <div class="card-image-wrapper">
+                <img src="${project.image}" 
+                     alt="${project.title}" 
+                     class="card-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="card-image-placeholder" style="display: none;">
+                    ${getIconForProject(project.title)}
+                </div>
+            </div>
         `;
 
         card.innerHTML = `
