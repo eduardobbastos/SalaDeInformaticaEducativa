@@ -16,6 +16,17 @@ O JClic oferece uma variedade de tipos de atividades, o que permite aos educador
 - **Questionários:** Perguntas de múltipla escolha, verdadeiro ou falso e outros formatos que testam o conhecimento dos alunos.
 - **Atividades de Correspondência:** Os alunos combinam itens correspondentes, como palavras em diferentes idiomas ou imagens com seus nomes.
 
+## Gamificação e Interface Lúdica
+
+Para ampliar ainda mais a experiência do usuário e o engajamento dos alunos, a interface principal deste projeto foi completamente redesenhada com uma proposta **lúdica e gamificada**.
+
+A galeria de atividades, anteriormente apresentada em forma de lista, foi transformada em um **Jogo de Tabuleiro Interativo** (Board Game). 
+- **Trilha do Conhecimento:** As atividades são apresentadas como "casas" em uma trilha mágica.
+- **Interatividade:** O aluno joga um dado virtual 3D para avançar seu avatar pela trilha.
+- **Experiência Imersiva:** Elementos visuais como partículas, cores vibrantes e animações criam um ambiente acolhedor e divertido, incentivando a exploração e o aprendizado através da brincadeira.
+
+Essa abordagem visa transformar o próprio ato de escolher uma atividade em parte da diversão, aumentando a motivação intrínseca dos estudantes.
+
 ## Projeto de Mestrado Utilizando o JClic para Atividade de Linguagem
 
 Um exemplo concreto da aplicação do JClic foi em um projeto de mestrado que explorou a eficácia das atividades interativas do JClic para o ensino de linguagem em alunos do ensino médio. A atividade envolveu a criação de um exercício de correspondência, onde os alunos relacionavam definições de termos literários com os seus respectivos conceitos.

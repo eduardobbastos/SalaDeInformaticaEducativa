@@ -124,22 +124,32 @@ function initBoard() {
     gameBoard.innerHTML = '';
 
     // Create Steps
+    const columns = 5;
+
     projects.forEach((project, index) => {
         const step = document.createElement('div');
         step.className = 'board-step';
         step.id = `step-${index}`;
 
-        // Number badge
-        const badge = document.createElement('div');
-        badge.className = 'board-step-number';
-        badge.innerText = index + 1;
-        step.appendChild(badge);
+        // dataset index for styling
+        step.dataset.index = index;
 
-        // Icon based on title (Reusing logic)
-        const iconDiv = document.createElement('div');
-        iconDiv.className = 'step-icon';
-        iconDiv.innerHTML = getIconForProject(project.title);
-        step.appendChild(iconDiv);
+        // Snake Layout Calculation
+        const row = Math.floor(index / columns);
+        let col = index % columns;
+
+        if (row % 2 === 1) {
+            col = columns - 1 - col;
+        }
+
+        step.style.gridColumnStart = col + 1;
+        step.style.gridRowStart = row + 1;
+
+        // Large central number
+        const numberSpan = document.createElement('span');
+        numberSpan.className = 'step-number';
+        numberSpan.innerText = index + 1;
+        step.appendChild(numberSpan);
 
         // Click to jump (Cheat mode / Accessibility)
         step.addEventListener('click', () => {
@@ -442,3 +452,64 @@ document.addEventListener('DOMContentLoaded', () => {
         initCustomCursor();
     }
 });
+
+function drawConnectors() {
+    const svg = document.getElementById('svg-connectors');
+    const container = document.getElementById('game-board-container');
+    const steps = document.querySelectorAll('.board-step');
+
+    if (!svg || !container || steps.length < 2) return;
+
+    // Clear previous
+    svg.innerHTML = '';
+
+    const containerRect = container.getBoundingClientRect();
+
+    for (let i = 0; i < steps.length - 1; i++) {
+        const step1 = steps[i];
+        const step2 = steps[i + 1];
+
+        const rect1 = step1.getBoundingClientRect();
+        const rect2 = step2.getBoundingClientRect();
+
+        // Calculate centers relative to container
+        const x1 = rect1.left - containerRect.left + rect1.width / 2;
+        const y1 = rect1.top - containerRect.top + rect1.height / 2;
+        const x2 = rect2.left - containerRect.left + rect2.width / 2;
+        const y2 = rect2.top - containerRect.top + rect2.height / 2;
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("class", "connector-path");
+
+        // Simple curve logic:
+        // If Y is different (row change), use a curve.
+        // If Y is same (same row), straight line or slight arc.
+
+        const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+        // Simple Bezier for organic feel
+        // Control point: mid point + offset?
+        // Let's just use Straight Line for simplicity as 'Snake' grid handles the layout structure
+        // But to make it 'winding', maybe a slight curve?
+        // Let's stick to L for robustness first.
+
+        path.setAttribute("d", `M ${x1} ${y1} L ${x2} ${y2}`);
+
+        svg.appendChild(path);
+    }
+}
+
+// Update call sites
+window.addEventListener('resize', () => {
+    placePlayerAt(currentPosition);
+    initParticles(); // Re-init particles on resize usually good
+    drawConnectors();
+});
+
+// Hook into initBoard
+const originalInitBoard = initBoard;
+initBoard = function () {
+    originalInitBoard();
+    // Wait for DOM layout
+    setTimeout(drawConnectors, 100);
+};
