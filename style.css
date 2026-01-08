@@ -338,4 +338,342 @@ footer p {
         padding-top: 6rem;
         border-radius: 0 0 2.5rem 2.5rem;
     }
+}/* --- Game Interface Styles --- */
+
+#game-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 40px;
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8), 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Controls */
+#game-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    z-index: 10;
+}
+
+.instructions {
+    text-align: center;
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--secondary);
+}
+
+.instructions p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+#game-status {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    font-weight: 800;
+}
+
+/* 3D Dice */
+.dice-container {
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.dice {
+    width: 60px; /* Reduced from 100px */
+    height: 60px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    /* Easing for "spin" feel */
+}
+
+.side {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Dice positioning */
+.front  { transform: rotateY(0deg) translateZ(30px); }
+.back   { transform: rotateY(180deg) translateZ(30px); }
+.right  { transform: rotateY(90deg) translateZ(30px); }
+.left   { transform: rotateY(-90deg) translateZ(30px); }
+.top    { transform: rotateX(90deg) translateZ(30px); }
+.bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+/* Play Button */
+.btn-shine {
+    padding: 12px 35px;
+    background: linear-gradient(to right, var(--primary), var(--purple));
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(165, 94, 234, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-shine:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(165, 94, 234, 0.6);
+}
+
+.btn-shine:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Board Layout */
+.game-board-container {
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    gap: 2rem;
+    justify-items: center;
+}
+
+/* Steps (Nodes) */
+.board-step {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: var(--shadow-md);
+    border: 4px solid var(--secondary);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.board-step:hover {
+    transform: scale(1.1);
+    border-color: var(--primary);
+    cursor: pointer;
+}
+
+.board-step.active-node {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+    animation: pulse 2s infinite;
+}
+
+.board-step-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--dark);
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+}
+.step-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--dark); /* Make icons dark for visibility on white */
+}
+
+
+/* Path Connectors (Snake Pattern Logic handled in CSS mostly visually via order or just straight grid)
+   For true winding paths, SVG is best, but for grid, we can use pseudo elements.
+*/
+
+/* Player Avatar */
+.player-avatar {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    pointer-events: none; /* Let clicks pass through to nodes */
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+}
+
+.player-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid white;
+    background: var(--accent);
+}
+
+/* Modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 10000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); 
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--surface);
+    margin: auto;
+    padding: 0;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    animation: slideIn 0.4s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+#modal-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+#modal-title {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+#modal-description {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.modal-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--secondary);
+    color: white;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+    transition: all 0.3s;
+}
+
+.modal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.6);
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 230, 109, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 230, 109, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 230, 109, 0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+        gap: 1.5rem;
+    }
+    
+    .board-step {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .player-avatar {
+        width: 45px;
+        height: 45px;
+    }
 }

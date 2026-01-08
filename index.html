@@ -67,8 +67,46 @@
                 <p>Explore as atividades interativas disponíveis abaixo.</p>
             </div>
 
-            <div id="projects-grid" class="projects-grid">
-                <!-- Os projetos serão inseridos aqui via JavaScript -->
+            <!-- Game Interface -->
+            <div id="game-interface">
+                <div id="game-controls">
+                    <div class="dice-container">
+                        <div id="dice" class="dice">
+                            <div class="side front">1</div>
+                            <div class="side back">6</div>
+                            <div class="side right">3</div>
+                            <div class="side left">4</div>
+                            <div class="side top">5</div>
+                            <div class="side bottom">2</div>
+                        </div>
+                        <button id="roll-btn" class="btn-shine">JOGAR DADO</button>
+                    </div>
+                    <div class="instructions">
+                        <p>Role o dado para avançar na trilha do conhecimento!</p>
+                        <p id="game-status">Sua vez!</p>
+                    </div>
+                </div>
+
+                <div id="game-board-container" class="game-board-container">
+                    <!-- The path/trail will be generated here -->
+                    <div id="game-board" class="game-board"></div>
+                    <div id="player" class="player-avatar">
+                        <img src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=Mario" alt="Player">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Modal -->
+            <div id="activity-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div class="modal-body">
+                        <img id="modal-image" src="" alt="Project Image">
+                        <h2 id="modal-title">Project Title</h2>
+                        <p id="modal-description">Description goes here.</p>
+                        <a id="modal-link" href="#" target="_blank" class="modal-btn">Acessar Atividade</a>
+                    </div>
+                </div>
             </div>
         </section>
 
