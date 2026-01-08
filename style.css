@@ -52,7 +52,7 @@ body {
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    z-index: 9999;
+    z-index: 99999;
     pointer-events: none;
 }
 
@@ -65,7 +65,7 @@ body {
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    z-index: 9999;
+    z-index: 99999;
     pointer-events: none;
     transition: width 0.2s, height 0.2s, background-color 0.2s;
 }
@@ -338,7 +338,9 @@ footer p {
         padding-top: 6rem;
         border-radius: 0 0 2.5rem 2.5rem;
     }
-}/* --- Game Interface Styles --- */
+}
+
+/* --- Game Interface Styles --- */
 
 #game-interface {
     display: flex;
@@ -348,7 +350,7 @@ footer p {
     padding: 2rem;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 40px;
-    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8), 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8), 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     max-width: 1000px;
     margin: 0 auto;
@@ -395,12 +397,13 @@ footer p {
 }
 
 .dice {
-    width: 60px; /* Reduced from 100px */
+    width: 60px;
+    /* Reduced from 100px */
     height: 60px;
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(0deg) rotateY(0deg);
-    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     /* Easing for "spin" feel */
 }
 
@@ -417,16 +420,33 @@ footer p {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--dark);
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Dice positioning */
-.front  { transform: rotateY(0deg) translateZ(30px); }
-.back   { transform: rotateY(180deg) translateZ(30px); }
-.right  { transform: rotateY(90deg) translateZ(30px); }
-.left   { transform: rotateY(-90deg) translateZ(30px); }
-.top    { transform: rotateX(90deg) translateZ(30px); }
-.bottom { transform: rotateX(-90deg) translateZ(30px); }
+.front {
+    transform: rotateY(0deg) translateZ(30px);
+}
+
+.back {
+    transform: rotateY(180deg) translateZ(30px);
+}
+
+.right {
+    transform: rotateY(90deg) translateZ(30px);
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(30px);
+}
+
+.top {
+    transform: rotateX(90deg) translateZ(30px);
+}
+
+.bottom {
+    transform: rotateX(-90deg) translateZ(30px);
+}
 
 /* Play Button */
 .btn-shine {
@@ -461,12 +481,13 @@ footer p {
     position: relative;
     width: 100%;
     padding: 2rem;
-    
+
 }
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    grid-template-columns: repeat(5, 1fr);
+    /* 5 columns */
     gap: 2rem;
     justify-items: center;
 }
@@ -519,10 +540,12 @@ footer p {
     width: 40px;
     height: 40px;
 }
+
 .step-icon svg {
     width: 100%;
     height: 100%;
-    stroke: var(--dark); /* Make icons dark for visibility on white */
+    stroke: var(--dark);
+    /* Make icons dark for visibility on white */
 }
 
 
@@ -539,8 +562,9 @@ footer p {
     left: 0;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 5;
-    pointer-events: none; /* Let clicks pass through to nodes */
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+    pointer-events: none;
+    /* Let clicks pass through to nodes */
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
 }
 
 .player-avatar img {
@@ -553,15 +577,15 @@ footer p {
 
 /* Modal */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 10000; 
+    display: none;
+    position: fixed;
+    z-index: 10000;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.6); 
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
@@ -573,8 +597,13 @@ footer p {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .modal-content {
@@ -584,7 +613,7 @@ footer p {
     border-radius: 30px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     position: relative;
     text-align: center;
     overflow: hidden;
@@ -592,8 +621,15 @@ footer p {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .close-modal {
@@ -655,23 +691,32 @@ footer p {
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 230, 109, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 230, 109, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 230, 109, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 230, 109, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 230, 109, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 230, 109, 0);
+    }
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .game-board {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile */
         gap: 1.5rem;
     }
-    
+
     .board-step {
         width: 60px;
         height: 60px;
     }
-    
+
     .player-avatar {
         width: 45px;
         height: 45px;
